@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import { useInView } from 'react-intersection-observer'
 const days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
 const dates = [
@@ -11,9 +11,13 @@ const dates = [
 ];
 
 const Calendar = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.5     // 20% элемента видно
+  })
   return (
     <section id="date" className="py-20 text-[#2f2a26]">
-      <div className="container mx-auto text-center">
+      <div className={`container mx-auto text-center ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
 
         {/* Заголовок */}
         <h2 className="text-5xl mb-10 font-[cursive] big-text">

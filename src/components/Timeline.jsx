@@ -1,6 +1,38 @@
 // src/components/Timeline.jsx
 import React from "react";
+import { useInView } from "react-intersection-observer";
+const AnimatedEvent = ({event, index}) => {
+   const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.8     // 20% элемента видно
+  })
+  return (
+  <div
+    key={index}
+    ref={ref}
+    className={`grid grid-cols-[1fr_40px_1fr] items-center ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`}
+  >
+    {/* левая колонка — иконка */}
+    <div className="flex justify-center">
+      <img src={event.icon} alt={event.title} className="w-12 h-12" />
+    </div>
 
+    {/* центр — сердце */}
+    <div className={`flex justify-center text-[${color}] text-lg`}>
+      ❤
+    </div>
+
+    {/* правая колонка — текст */}
+    <div className="text-center">
+      <div className="text-xl font-semibold text-[#02281c] leading-none">
+        {event.time}
+      </div>
+      <div className={`text-md text-[${color}] mt-1`}>
+        {event.title}
+      </div>
+    </div>
+</div>)
+}
 const events = [
   { time: "14:45", title: "Сбор гостей", icon: "/toast-s.svg" },
   { time: "15:10", title: "Церемония", icon: "/wedding-rings.svg" },
@@ -11,9 +43,13 @@ const events = [
 const color = "#02281c";
 
 const Timeline = () => {
+     const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.5     // 20% элемента видно
+  })
   return (
     <section id="program" className="py-16 bg-[#b0c7c7]/20">
-      <div className="container mx-auto px-6">
+      <div className={`container mx-auto px-6 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
 
         <h2 className="text-5xl text-center mb-10 text-[#834a12] big-text">
           Программа дня
@@ -26,30 +62,7 @@ const Timeline = () => {
 
           <div className="flex flex-col gap-12">
             {events.map((event, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-[1fr_40px_1fr] items-center"
-              >
-                {/* левая колонка — иконка */}
-                <div className="flex justify-center">
-                  <img src={event.icon} alt={event.title} className="w-12 h-12" />
-                </div>
-
-                {/* центр — сердце */}
-                <div className={`flex justify-center text-[${color}] text-lg`}>
-                  ❤
-                </div>
-
-                {/* правая колонка — текст */}
-                <div className="text-center">
-                  <div className="text-xl font-semibold text-[#02281c] leading-none">
-                    {event.time}
-                  </div>
-                  <div className={`text-md text-[${color}] mt-1`}>
-                    {event.title}
-                  </div>
-                </div>
-              </div>
+              <AnimatedEvent event={event} index={index} />
             ))}
           </div>
         </div>

@@ -1,6 +1,7 @@
 // src/components/Timeline.jsx
 import React from "react";
-
+import StoryPart from './StoryPart';
+import { useInView } from "react-intersection-observer";
 const colors = [
 
       { key: "#e9f5f1", value: "#d2e4de" },
@@ -17,36 +18,21 @@ const colors = [
   { key: "#d6c2b8", value: "#baa69c" },
   { key: "#D8D2CF", value: "#bcb6b3" },
   { key: "#eceae8", value: "#cecac8" },
-
-  
-
 ];
-
+const storyParts = [
+  "Лёгкий летний ветерок, солнечные блики на коже, ощущение тепла и уюта, будто мы все собрались где-то на природе, среди трав и деревьев…",
+  "Будем рады, если ваши образы поддержат это настроение! Нежные, пастельные и природные оттенки, лёгкие и воздушные ткани подойдут для этого как нельзя лучше.",
+  "Просим по возможности избегать ярких цветов и тёмного верха — так пространство и фотографии будут выглядеть особенно гармонично.",
+  "Формат — smart casual: легко, удобно и без лишней строгости (джинсы допустимы, для мужчин отличным выбором станет светлый верх, например, рубашка).",
+]
 const color = '#02281c';
-
-const DressCode = () => {
+const DressColors = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.8     // 20% элемента видно
+  })
   return (
-    <section id="details" className="py-16">
-      <div className="container mx-auto px-6">
-
-        <h2 className="text-5xl text-center mb-10 big-text">
-          Дресс-код
-        </h2>
-
-        {/* Текстовый блок с инструкцией */}
-        <p className="text-center low-text mb-4 max-w-2xl mx-auto text-lg md:text-xl">
-          
-Лёгкий летний ветерок, солнечные блики на коже, ощущение тепла и уюта, будто мы все собрались где-то на природе, среди трав и деревьев… 
-        </p>
-        <p className="text-center low-text mb-4  max-w-2xl mx-auto text-lg md:text-xl">
-          
-        Будем рады, если ваши образы поддержат это настроение! Нежные, пастельные и природные оттенки, лёгкие и воздушные ткани подойдут для этого как нельзя лучше. 
-        </p>
-        <p className="text-center low-text mb-4 max-w-2xl mx-auto text-lg md:text-xl">Просим по возможности избегать ярких цветов и тёмного верха — так пространство и фотографии будут выглядеть особенно гармонично. </p>
-        <p className="text-center low-text mb-4  max-w-2xl mx-auto text-lg md:text-xl">Формат — smart casual: легко, удобно и без лишней строгости (джинсы допустимы, для мужчин отличным выбором станет светлый верх, например, рубашка).</p>
-        {/* Блок с 6 SVG */}
-       <div className="flex justify-center mt-13">
-  <div className="grid grid-cols-4 gap-10">
+     <div className={`grid grid-cols-4 gap-10 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
     {colors.map((color, index) => (
       <svg
         key={index}
@@ -59,7 +45,25 @@ const DressCode = () => {
       </svg>
     ))}
   </div>
-</div>
+  )
+}
+const DressCode = () => {
+   const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.2     // 20% элемента видно
+  })
+  return (
+    <section id="details" className="py-16">
+      <div className={`container mx-auto px-6 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
+
+        <h2 className="text-5xl text-center mb-10 big-text">
+          Дресс-код
+        </h2>
+        {storyParts.map(cv => <StoryPart text={cv} className={'text-center low-text mb-4 max-w-2xl mx-auto text-lg md:text-xl'}/>)}
+        {/* Блок с 6 SVG */}
+        <div className="flex justify-center mt-13">
+          <DressColors/>
+        </div>
         
    
       </div>

@@ -1,6 +1,7 @@
 // src/components/Footer.jsx
 import React from 'react';
 import Countdown from 'react-countdown';
+import { useInView } from 'react-intersection-observer';
 import { weddingName, weddingDateISO } from '../../constants';
 const Completionist = () => <span>You are good to go!</span>;
 
@@ -10,7 +11,7 @@ const renderer = ({days, hours, minutes, seconds, completed }) => {
     return <Completionist />;
   } else {
 
-    return <div className='flex items-center justify-center gap-10 count-down-text'>
+    return <div className='flex items-center justify-center gap-10 count-down-text px-4 md: px-0'>
       <div className='text-3xl flex flex-col'>
         <div>
         {days}
@@ -38,14 +39,18 @@ const renderer = ({days, hours, minutes, seconds, completed }) => {
 };
 
 const Footer = () => {
+    const { ref, inView } = useInView({
+     triggerOnce: true, // анимация только один раз
+     threshold: 0.8     // 20% элемента видно
+   })
   return (
     <footer className="py-12  bg-[#b0c7c7]/20">
-      <div className="container mx-auto px-4 text-center">
+      <div className={`container mx-auto px-4 text-center ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
         <h3 className="text-5xl  mb-6 low-text" style={{ fontFamily: "Lumios-Marker" }}>
           {weddingName}
         </h3>
         <p className="text-xl mb-6 low-text">С нетерпением ждём встречи с вами через:</p>
-        <Countdown date={weddingDateISO} renderer={renderer}/>
+        <Countdown date={weddingDateISO} renderer={renderer} />
         <p className="text-gray-400 text-sm mt-8">Создано нами с любовью!</p>
       </div>
     </footer>

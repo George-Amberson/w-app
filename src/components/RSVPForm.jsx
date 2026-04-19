@@ -1,6 +1,7 @@
 // src/components/RSVPForm.jsx
 import React, { useState, useRef, useEffect } from "react";
 import api from '../api/api';
+import { useInView } from "react-intersection-observer";
 const RSVPForm = ({ guests }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [expandedGuest, setExpandedGuest] = useState(null);
@@ -46,16 +47,19 @@ const handleSubmit = async (e, guest) => {
     console.error(err);
   }
 };
-
+     const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.5     // 20% элемента видно
+  })
   return (
     <section id="rsvp" className="py-16">
-      <div className="container mx-auto px-4">
+      <div className={`container mx-auto px-4 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
         <h2 className="text-5xl  text-center mb-10 big-text">
            Дорогие гости!
         </h2>
         <p className="text-center low-text mb-8 max-w-2xl mx-auto text-lg md:text-xl">
        
-Чтобы наш праздник был по-настоящему уютным, просим заполнить анкету для каждого гостя, указанного в приглашении. 
+          Чтобы наш праздник был по-настоящему уютным, просим заполнить анкету для каждого гостя, указанного в приглашении. 
         </p>
         <p className="text-center important-text mb-8 max-w-2xl mx-auto text-lg md:text-xl">
           Не забудьте подтвердить своё присутствие до 15 июня!

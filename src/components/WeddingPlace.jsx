@@ -2,16 +2,21 @@
 import React from "react";
 import Map, { Marker } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-
+import { useInView } from "react-intersection-observer";
 const position = {
   latitude: 56.326497,
   longitude: 44.011897
 };
 
 const WeddingPlace = () => {
+   const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.4    // 20% элемента видно
+  })
+
   return (
 <section id="place" className="py-20">
-  <div className="mx-auto px-4 md:px-6">
+  <div className={`mx-auto px-4 md:px-6 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
 
     <div className="flex flex-col gap-10">
 
@@ -47,7 +52,7 @@ const WeddingPlace = () => {
       initialViewState={{
         longitude: position.longitude,
         latitude: position.latitude,
-        zoom: 15
+        zoom: 16
       }}
       style={{ width: "100%", height: "100%" }}
       mapStyle={{
@@ -81,10 +86,10 @@ const WeddingPlace = () => {
       </Marker>
     </Map>
   </div>
-</div>
+  </div>
 
     </div>
-  </div>
+</div>
 </section>
   );
 };

@@ -1,10 +1,14 @@
 // src/components/Chats.jsx
 import React from "react";
-
+import { useInView } from "react-intersection-observer";
 const Chats = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // анимация только один раз
+    threshold: 0.8     // 20% элемента видно
+  })
   return (
     <section id="chats" className="py-16">
-      <div className="container mx-auto px-6">
+      <div className={`container mx-auto px-6 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
 
         <h2 className="text-5xl text-center mb-10 big-text">
           Чаты

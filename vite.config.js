@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(),  tailwindcss()],
   build: {
-    outDir: '/var/www/wedding_prod',
+    outDir: '../wedding_prod',
     emptyOutDir: true
   },
   server: {

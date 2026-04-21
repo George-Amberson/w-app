@@ -24,7 +24,7 @@ const Chats = () => {
 
           {/* Telegram */}
           <a
-            href="https://t.me/+58TrqEEkRkVlNTUy"
+            href={import.meta.env.VITE_TG_INVITE}
             target="_blank"
             rel="noreferrer"
             className="px-8 py-4 rounded-xl border border-[#02281c] text-[#02281c]
@@ -36,7 +36,7 @@ const Chats = () => {
 
           {/* VK */}
           <a
-            href="https://vk.me/join/KGBgeneMLuf7L/rEt5RZxou3yLQNfPxbQD0="
+            href={import.meta.env.VITE_VK_INVITE}
             target="_blank"
             rel="noreferrer"
             className="px-8 py-4 rounded-xl border border-[#02281c] text-[#02281c]

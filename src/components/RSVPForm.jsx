@@ -5,7 +5,9 @@ import { useInView } from "react-intersection-observer";
 const RSVPForm = ({ guests }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [expandedGuest, setExpandedGuest] = useState(null);
-const [attendance, setAttendance] = useState({});
+const [attendance, setAttendance] = useState({
+
+});
 const [submittedGuests, setSubmittedGuests] = useState({});
 const timeoutsRef = useRef({});
 useEffect(() => {
@@ -59,7 +61,7 @@ const handleSubmit = async (e, guest) => {
         </h2>
         <p className="text-center low-text mb-8 max-w-2xl mx-auto text-lg md:text-xl">
        
-          Чтобы наш праздник был по-настоящему уютным, просим заполнить анкету для каждого гостя, указанного в приглашении. 
+          Чтобы наш праздник был по-настоящему уютным, просим заполнить анкету для каждого гостя, указанного в вашем приглашении. 
         </p>
         <p className="text-center important-text mb-8 max-w-2xl mx-auto text-lg md:text-xl">
           Не забудьте подтвердить своё присутствие до 15 июня!
@@ -150,11 +152,12 @@ const Form = ({ guest, attendance, setAttendance, handleSubmit, isSubmitted }) =
   if (isSubmitted) {
     return <Submitted />;
   }
+  console.log(attendance[guest.id])
   return (
     <form onSubmit={(e) => handleSubmit(e, guest)}>
       {/* RSVP */}
       <div className="mb-6">
-        <label className="block text-[#02281c] mb-4 font-semibold">Вы придете на нашу свадьбу? *</label>
+        <label className="block text-[#02281c] mb-4 font-semibold">Вы придёте на нашу свадьбу? *</label>
         <div className="flex space-x-6">
           <label className="flex items-center cursor-pointer text-[#02281c] hover:text-[#834a12] transition">
             <input
@@ -186,57 +189,70 @@ const Form = ({ guest, attendance, setAttendance, handleSubmit, isSubmitted }) =
           </label>
         </div>
       </div>
-
+{ attendance[guest.id]?.status === 'accepted' && <>
       {/* Аллергии */}
       <div className="mb-6">
         <label className="block text-[#02281c] mb-2 font-semibold">Аллергии</label>
         <textarea
           rows="4"
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#02281c] text-[#02281c]"
-          placeholder="Есть ли у вас аллергии?"
+          placeholder="Есть ли у Вас аллергии?"
           onChange={(e) => setAttendance((prev) => ({ ...prev, [guest.id]: {
-      ...prev[guest.id],
-      comment: e.target.value,
-    }, }))}
+            ...prev[guest.id],
+            comment: e.target.value,
+          }, }))}
         ></textarea>
       </div>
 
-<div className='mb-6'>
-  <label className="block text-[#02281c] mb-4 font-semibold">
-    Какие напитки Вы предпочитаете? *  
-    <span className="font-normal"> (Можно выбрать несколько вариантов)</span>
-  </label>
+      <div className='mb-6'>
+        <label className="block text-[#02281c] mb-4 font-semibold">
+          Какие напитки Вы предпочитаете? *  
+          <span className="font-normal"> (Можно выбрать несколько вариантов)</span>
+        </label>
 
- <div className="grid gap-2 justify-items-start grid-cols-2">
-  {alcoholOptions.map((option) => (
-    <label
-      key={option.value}
-      className="flex items-center cursor-pointer text-[#02281c] hover:text-[#834a12] transition"
-    >
-      <input
-        type="checkbox"
-        name={`alcohol-${guest}`}
-        value={option.value}
-        className="mr-2 h-5 w-5 accent-[#02281c] hover:accent-[#834a12] checked:accent-[#02281c] checked:hover:accent-[#834a12]"
-        onChange={(e) => setAttendance((prev) => ({ ...prev,  [guest.id]: {
-      ...prev[guest.id],
-      [option.value]: e.target.checked,
-    }, }))
-        }
-      />
-      <span>{option.label}</span>
-    </label>
-  ))}
-</div>
+      <div className="grid gap-2 justify-items-start grid-cols-2">
+        {alcoholOptions.map((option) => (
+          <label
+            key={option.value}
+            className="flex items-center cursor-pointer text-[#02281c] hover:text-[#834a12] transition"
+          >
+            <input
+              type="checkbox"
+              name={`alcohol-${guest}`}
+              value={option.value}
+              className="mr-2 h-5 w-5 accent-[#02281c] hover:accent-[#834a12] checked:accent-[#02281c] checked:hover:accent-[#834a12]"
+              onChange={(e) => setAttendance((prev) => ({ ...prev,  [guest.id]: {
+            ...prev[guest.id],
+            [option.value]: e.target.checked,
+          }, }))
+              }
+            />
+            <span>{option.label}</span>
+          </label>
+        ))}
+      </div>
   </div>
-
+  </>}
       {/* Submit */}
-      <button
-        type="submit"
-        className="w-full bg-[#02281c] text-white py-4 rounded-lg font-semibold hover:bg-[#834a12] hover:text-white transition transform hover:-translate-y-1 shadow-md"
-      >
-        Отправить ответ
-      </button>
+<button
+  type="submit"
+  disabled={!attendance[guest.id]?.status}
+  className="
+    w-full py-4 rounded-lg font-semibold transition
+
+    bg-[#02281c] text-white shadow-md
+    enabled:hover:bg-[#834a12]
+    enabled:hover:-translate-y-1
+
+    disabled:bg-white
+    disabled:text-gray-500
+    disabled:border disabled:border-gray-300
+    disabled:shadow-none
+    disabled:cursor-not-allowed
+  "
+>
+  Отправить ответ
+</button>
     </form>
   )
 }

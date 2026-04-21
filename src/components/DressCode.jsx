@@ -4,7 +4,7 @@ import StoryPart from './StoryPart';
 import { useInView } from "react-intersection-observer";
 const colors = [
 
-      { key: "#e9f5f1", value: "#d2e4de" },
+      { key: "#dfece8", value: "#c7d6d1" },
     { key: "#e9f5f5", value: "#cedfdf" },
       { key: "#edf1eb", value: "#d0deca" },
   { key: "#fefee5", value: "#e2e2c9" },
@@ -12,7 +12,7 @@ const colors = [
   { key: "#f1edfd", value: "#d8d1e9" },
   { key: "#f7e5e5", value: "#e3c8c8" },
   { key: "#faefe6", value: "#ded3ca" },
-  { key: "#fffcf5", value: "#dedcdc" },
+  { key: "#fffcf5", value: "#dfdbd1" },
 
   { key: "#B89784", value: "#9c7b70" },
   { key: "#d6c2b8", value: "#baa69c" },

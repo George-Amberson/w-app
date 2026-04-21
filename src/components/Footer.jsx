@@ -11,7 +11,7 @@ const renderer = ({days, hours, minutes, seconds, completed }) => {
     return <Completionist />;
   } else {
 
-    return <div className='flex items-center justify-center gap-10 count-down-text px-4 md: px-0'>
+    return <div className='flex items-center justify-center gap-6 count-down-text px-12 md:px-0'>
       <div className='text-3xl flex flex-col'>
         <div>
         {days}

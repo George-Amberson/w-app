@@ -3,6 +3,7 @@ import React from "react";
 import Map, { Marker } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useInView } from "react-intersection-observer";
+import pin from '@/assets/icons/pin.svg'
 const position = {
   latitude: 56.326497,
   longitude: 44.011897
@@ -82,7 +83,7 @@ const WeddingPlace = () => {
         latitude={position.latitude}
         anchor="bottom"
       >
-        <img src="/pin.svg" className="w-16 h-16"/>
+        <img src={pin} className="w-16 h-16"/>
       </Marker>
     </Map>
   </div>

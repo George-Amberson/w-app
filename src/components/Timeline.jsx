@@ -1,6 +1,10 @@
 // src/components/Timeline.jsx
 import React from "react";
 import { useInView } from "react-intersection-observer";
+import banquet from '@/assets/icons/banquet.svg';
+import toast from '@/assets/icons/toast-s.svg';
+import rings from '@/assets/icons/wedding-rings.svg'
+import fireworks from '@/assets/icons/fireworks.svg';
 const AnimatedEvent = ({event, index}) => {
    const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз
@@ -34,10 +38,10 @@ const AnimatedEvent = ({event, index}) => {
 </div>)
 }
 const events = [
-  { time: "14:45", title: "Сбор гостей", icon: "/toast-s.svg" },
-  { time: "15:10", title: "Церемония", icon: "/wedding-rings.svg" },
-  { time: "16:00", title: "Банкет", icon: "/banquet.svg" },
-  { time: "22:00", title: "Завершение вечера", icon: "/fireworks.svg" }
+  { time: "14:45", title: "Сбор гостей", icon: toast },
+  { time: "15:10", title: "Церемония", icon: rings },
+  { time: "16:00", title: "Банкет", icon: banquet },
+  { time: "22:00", title: "Завершение вечера", icon: fireworks }
 ];
 
 const color = "#02281c";

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from 'react-intersection-observer'
+import heart from '@/assets/icons/heart.svg'
 const days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
 const dates = [
@@ -49,7 +50,7 @@ const Calendar = () => {
 
                 {isWedding && (
                   <motion.img
-                    src="/heart.svg" // твоя картинка сердца
+                    src={heart} // твоя картинка сердца
                     alt="heart"
                     className="absolute w-10 h-10 top-"
                     animate={{ scale: [1.2, 1.1, 1] }}

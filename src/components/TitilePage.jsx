@@ -1,22 +1,21 @@
 // src/components/Hero.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { weddingDateISO } from "../../constants";
 import { DateTime } from "luxon";
-
+import invite from '@/assets/invite/invite.svg'
 // Ваша SVG
 
 
 const TitlePage = () => {
   const dateOfWedding = DateTime.fromISO(weddingDateISO).setLocale("ru");
 
-  const [animateTitle, setAnimateTitle] = useState(true);
   
   // Форматируем дату
   const dayOfWeek = dateOfWedding.toFormat("cccc"); // день недели
   const day = dateOfWedding.toFormat("d");         // число
   const month = dateOfWedding.toFormat("LLLL");     // месяц
   const year = dateOfWedding.toFormat("yyyy");      // год
-  const time = dateOfWedding.toFormat("HH:mm");     // время
+
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 low-text">
@@ -30,7 +29,7 @@ const TitlePage = () => {
           }`}
           style={{ transitionDelay: "0ms" }}
         >
-          <img className="w-auto h-32 md:h-48 mx-auto" src='test3.svg'/>
+          <img className="w-auto h-32 md:h-48 mx-auto" src={invite}/>
         </div>
 
         {/* Блок даты и времени */}

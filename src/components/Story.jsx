@@ -3,6 +3,7 @@ import React from 'react';
 import { ourStory } from '../../constants';
 import { useInView } from 'react-intersection-observer';
 import StoryPart from './StoryPart';
+import polaroid from '@/assets/pictures/polaroid.svg'
 const OurStory = () => {
   const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз
@@ -23,7 +24,7 @@ const OurStory = () => {
         <div className="flex flex-col md:flex-row items-start gap-3">
           <div className="md:w-1/2">
             <img
-              src="/polaroid_photo_1.svg"
+              src={polaroid}
               alt="Наша история"
               className={`-rotate-2 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`}
               ref={ref}

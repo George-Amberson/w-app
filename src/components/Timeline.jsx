@@ -5,6 +5,7 @@ import banquet from '@/assets/icons/banquet.svg';
 import toast from '@/assets/icons/toast-s.svg';
 import rings from '@/assets/icons/wedding-rings.svg'
 import fireworks from '@/assets/icons/fireworks.svg';
+import heart from '@/assets/icons/theart.svg'
 const AnimatedEvent = ({event, index}) => {
    const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз
@@ -23,7 +24,7 @@ const AnimatedEvent = ({event, index}) => {
 
     {/* центр — сердце */}
     <div className={`flex justify-center text-[${color}] text-lg`}>
-      ❤
+       <img src={heart} className="w-5 h-5"></img>
     </div>
 
     {/* правая колонка — текст */}
@@ -88,7 +89,9 @@ const Timeline = () => {
                 </div>
 
                 {/* сердечко */}
-                <div className={`text-[20px] text-[${color}] mb-4`}>❤</div>
+                <div className={`text-[20px] text-[${color}]`}>
+                  <img src={heart} className="w-5 h-5 mt-2"></img>
+                </div>
 
                 {/* время */}
                 <div className="text-xl font-semibold text-[#02281c] leading-none">

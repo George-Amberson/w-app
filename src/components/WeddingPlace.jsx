@@ -3,21 +3,13 @@ import React from "react";
 
 import { useInView } from "react-intersection-observer";
 
-function isLowEndIOS() {
+const isLowEndIOS = () => {
+  console.log(1)
   const ua = navigator.userAgent;
 
   const isIOS = /iPhone|iPad|iPod/.test(ua);
+  console.log(isIOS)
   if (!isIOS) return false;
-
-  // грубый, но полезный heuristic
-  const isOldIOS = /OS (1[0-4]|15)_/.test(ua);
-
-  const canvas = document.createElement("canvas");
-  const gl =
-    canvas.getContext("webgl") ||
-    canvas.getContext("experimental-webgl");
-
-  return isOldIOS || !gl;
 }
 const Map = React.lazy(() => import("./Map"));
 const WeddingPlace = () => {
@@ -59,10 +51,10 @@ const WeddingPlace = () => {
 
       {/* карта */}
      <div className="w-full flex justify-center">
-      {!isLowEndIOS && (
-        <Suspense fallback={null}>
+      {!isLowEndIOS() && (
+        <React.Suspense fallback={null}>
           <Map />
-        </Suspense>
+        </React.Suspense>
       )}
   </div>
 

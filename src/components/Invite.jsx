@@ -17,7 +17,7 @@ const OurStory = ({invite}) => {
 
       {/* Контент */}
       <div className={`relative z-10 container mx-auto px-4 ${inView ? 'animate-fade-up opacity-100' : 'opacity-0'}`} ref={ref}>
-        <h2 className={`text-5xl text-center items-baseline big-text mb-2`} >{invite.greeting}!</h2>
+        <h2 className={`text-5xl text-center items-baseline big-text mb-2 big-spacer`} >{invite.greeting}!</h2>
         <div className="flex flex-col md:flex-row items-center justify-center">
           <div className="text-center">
             <p className="mb-4 mt-8 low-text px-10 text-lg md:text-xl">{`Приглашаем ${invite.pronoun} разделить с нами радость особого дня - дня нашей свадьбы!`}</p>

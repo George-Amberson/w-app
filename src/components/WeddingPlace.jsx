@@ -1,25 +1,25 @@
 // src/components/EventDetails.jsx
 import React from "react";
-import Map, { Marker } from "react-map-gl/maplibre";
-import "maplibre-gl/dist/maplibre-gl.css";
+
 import { useInView } from "react-intersection-observer";
-import pin from '@/assets/icons/pin.svg'
-const position = {
-  latitude: 56.326497,
-  longitude: 44.011897
-};
-const isOldIOSSafari = () =>{
-  const ua = window.navigator.userAgent;
 
-  const isSafari = /Safari/.test(ua) && !/Chrome|CriOS|FxiOS/.test(ua);
-  const iOSMatch = ua.match(/OS (\d+)_/);
+function isLowEndIOS() {
+  const ua = navigator.userAgent;
 
-  if (!isSafari || !iOSMatch) return false;
+  const isIOS = /iPhone|iPad|iPod/.test(ua);
+  if (!isIOS) return false;
 
-  const iosVersion = parseInt(iOSMatch[1], 10);
+  // грубый, но полезный heuristic
+  const isOldIOS = /OS (1[0-4]|15)_/.test(ua);
 
-  return iosVersion < 16; // порог подбираешь под MapLibre
+  const canvas = document.createElement("canvas");
+  const gl =
+    canvas.getContext("webgl") ||
+    canvas.getContext("experimental-webgl");
+
+  return isOldIOS || !gl;
 }
+const Map = React.lazy(() => import("./Map"));
 const WeddingPlace = () => {
    const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз
@@ -59,45 +59,11 @@ const WeddingPlace = () => {
 
       {/* карта */}
      <div className="w-full flex justify-center">
-  {isOldIOSSafari && <div className="w-full md:w-3/4 lg:w-2/3 h-[420px] rounded-2xl overflow-hidden shadow-2xl border border-[#e6dccb]">
-    <Map
-      initialViewState={{
-        longitude: position.longitude,
-        latitude: position.latitude,
-        zoom: 16
-      }}
-      style={{ width: "100%", height: "100%" }}
-      mapStyle={{
-        version: 8,
-        sources: {
-          osm: {
-            type: "raster",
-            tiles: [
-              "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            ],
-            tileSize: 256
-          }
-        },
-        layers: [
-          {
-            id: "osm-layer",
-            type: "raster",
-            source: "osm"
-          }
-        ]
-      }}
-    >
-      <Marker
-        longitude={position.longitude}
-        latitude={position.latitude}
-        anchor="bottom"
-      >
-        <img src={pin} className="w-16 h-16"/>
-      </Marker>
-    </Map>
-  </div>}
+      {!isLowEndIOS && (
+        <Suspense fallback={null}>
+          <Map />
+        </Suspense>
+      )}
   </div>
 
     </div>

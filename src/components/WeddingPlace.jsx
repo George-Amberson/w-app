@@ -1,18 +1,24 @@
 // src/components/EventDetails.jsx
-import React from "react";
+import React, {useState} from "react";
 
 import { useInView } from "react-intersection-observer";
 
 const isLowEndIOS = () => {
-  console.log(1)
-  const ua = navigator.userAgent;
+  const ua = navigator.userAgent
 
-  const isIOS = /iPhone|iPad|iPod/.test(ua);
-  console.log(isIOS)
-  if (!isIOS) return false;
+  const isIOS = /iPhone|iPad|iPod/.test(ua)
+
+  if (!isIOS) return false
+
+  // грубая эвристика low-end
+  const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 4
+  const lowCPU = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4
+
+  return lowMemory || lowCPU
 }
 const Map = React.lazy(() => import("./Map"));
 const WeddingPlace = () => {
+  const [isLowEnd] = useState(() => isLowEndIOS())
    const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз
     threshold: 0.4    // 20% элемента видно
@@ -51,11 +57,11 @@ const WeddingPlace = () => {
 
       {/* карта */}
      <div className="w-full flex justify-center">
-      {!isLowEndIOS() && (
+     {!isLowEnd ? (
         <React.Suspense fallback={null}>
           <Map />
         </React.Suspense>
-      )}
+      ) : null}
   </div>
 
     </div>

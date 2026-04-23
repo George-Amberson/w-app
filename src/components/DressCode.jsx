@@ -6,7 +6,7 @@ const colors = [
 
       { key: "#dfece8", value: "#c7d6d1" },
     { key: "#e9f5f5", value: "#cedfdf" },
-      { key: "#e6f0e1", value: "#cbd3c6" },
+      { key: "#e9f3e4", value: "#cbd3c6" },
   { key: "#fefee5", value: "#e2e2c9" },
 
   { key: "#f1edfd", value: "#d8d1e9" },

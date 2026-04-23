@@ -214,19 +214,19 @@ const Form = ({ guest, attendance, setAttendance, handleSubmit, isSubmitted }) =
         {alcoholOptions.map((option) => (
           <label
             key={option.value}
-            className="flex items-center cursor-pointer text-[#02281c] hover:text-[#834a12] transition"
+            className="flex items-center cursor-pointer text-[#02281c] hover:text-[#834a12] transition md:hover:accent-[#834a12]
+              md:checked:hover:accent-[#834a12]"
           >
             <input
               type="checkbox"
               name={`alcohol-${guest}`}
               value={option.value}
              className="
-  mr-2 h-5 w-5
-  accent-[#02281c]
-  checked:accent-[#02281c]
-  md:hover:accent-[#834a12]
-  md:checked:hover:accent-[#834a12]
-"
+              mr-2 h-5 w-5
+              accent-[#02281c]
+              checked:accent-[#02281c]
+              md:hover:accent-[#834a12]
+              md:checked:hover:accent-[#834a12]"
               onChange={(e) => setAttendance((prev) => ({ ...prev,  [guest.id]: {
             ...prev[guest.id],
             [option.value]: e.target.checked,

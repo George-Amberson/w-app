@@ -3,7 +3,7 @@ import React from 'react';
 import { ourStory } from '../../constants';
 import { useInView } from 'react-intersection-observer';
 import StoryPart from './StoryPart';
-import polaroid from '@/assets/pictures/polaroid.svg'
+import polaroid from '@/assets/pictures/polaroid.webp'
 const OurStory = () => {
   const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз

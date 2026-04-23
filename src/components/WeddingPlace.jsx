@@ -3,22 +3,27 @@ import React, {useState} from "react";
 
 import { useInView } from "react-intersection-observer";
 
-const isLowEndIOS = () => {
+const isIOSBelow16 = () => {
   const ua = navigator.userAgent
 
   const isIOS = /iPhone|iPad|iPod/.test(ua)
-
   if (!isIOS) return false
 
-  // грубая эвристика low-end
-  const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 4
-  const lowCPU = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4
+  // iOS 16+ обычно содержит Version/16.x
+  const match = ua.match(/Version\/(\d+)\./)
 
-  return lowMemory || lowCPU
+  if (!match) {
+    // старые Safari часто не имеют Version → считаем старым iOS
+    return true
+  }
+
+  const version = parseInt(match[1], 10)
+
+  return version < 16
 }
 const Map = React.lazy(() => import("./Map"));
 const WeddingPlace = () => {
-  const [isLowEnd] = useState(() => isLowEndIOS())
+  const [isLowEnd] = useState(() => isIOSBelow16())
    const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз
     threshold: 0.4    // 20% элемента видно

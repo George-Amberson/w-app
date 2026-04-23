@@ -8,7 +8,18 @@ const position = {
   latitude: 56.326497,
   longitude: 44.011897
 };
+const isOldIOSSafari = () =>{
+  const ua = window.navigator.userAgent;
 
+  const isSafari = /Safari/.test(ua) && !/Chrome|CriOS|FxiOS/.test(ua);
+  const iOSMatch = ua.match(/OS (\d+)_/);
+
+  if (!isSafari || !iOSMatch) return false;
+
+  const iosVersion = parseInt(iOSMatch[1], 10);
+
+  return iosVersion < 16; // порог подбираешь под MapLibre
+}
 const WeddingPlace = () => {
    const { ref, inView } = useInView({
     triggerOnce: true, // анимация только один раз
@@ -48,7 +59,7 @@ const WeddingPlace = () => {
 
       {/* карта */}
      <div className="w-full flex justify-center">
-  <div className="w-full md:w-3/4 lg:w-2/3 h-[420px] rounded-2xl overflow-hidden shadow-2xl border border-[#e6dccb]">
+  {isOldIOSSafari && <div className="w-full md:w-3/4 lg:w-2/3 h-[420px] rounded-2xl overflow-hidden shadow-2xl border border-[#e6dccb]">
     <Map
       initialViewState={{
         longitude: position.longitude,
@@ -86,7 +97,7 @@ const WeddingPlace = () => {
         <img src={pin} className="w-16 h-16"/>
       </Marker>
     </Map>
-  </div>
+  </div>}
   </div>
 
     </div>

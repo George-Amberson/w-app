@@ -15,7 +15,7 @@ const Header = () => {
              {weddingName}
             </div>
             <div className="hidden md:flex space-x-8">
-              {links.map(cv => <a href={cv.href} className="low-text-link transition">{cv.title}</a>)}
+              {links.map((cv, id) => <a href={cv.href} key={id} className="low-text-link transition">{cv.title}</a>)}
               
             </div>
             <button 

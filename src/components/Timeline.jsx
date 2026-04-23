@@ -67,7 +67,7 @@ const Timeline = () => {
 
           <div className="flex flex-col gap-12">
             {events.map((event, index) => (
-              <AnimatedEvent event={event} index={index} />
+              <AnimatedEvent event={event} index={index} key={index}/>
             ))}
           </div>
         </div>

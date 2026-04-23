@@ -59,7 +59,7 @@ const DressCode = () => {
         <h2 className="text-5xl text-center mb-10 big-text">
           Дресс-код
         </h2>
-        {storyParts.map(cv => <StoryPart text={cv} className={'text-center low-text mb-4 max-w-2xl mx-auto text-lg md:text-xl'}/>)}
+        {storyParts.map((cv, i) => <StoryPart text={cv} key={i}className={'text-center low-text mb-4 max-w-2xl mx-auto text-lg md:text-xl'}/>)}
         {/* Блок с 6 SVG */}
         <div className="flex justify-center mt-13">
           <DressColors/>

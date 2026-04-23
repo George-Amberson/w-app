@@ -32,7 +32,7 @@ const OurStory = () => {
           </div>
           <div className="md:w-1/2 md:pt-0 text-center">
            <h2 className="text-5xl text-center items-baseline big-text mb-10">Наша история</h2>
-            {ourStory.map(cv =>  <StoryPart className={'mb-4 low-text text-lg md:text-xl'} text={cv}></StoryPart>)}
+            {ourStory.map((cv, index) =>  <StoryPart key={index} className={'mb-4 low-text text-lg md:text-xl'} text={cv}></StoryPart>)}
           </div>
         </div>
       </div>

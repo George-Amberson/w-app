@@ -57,7 +57,7 @@ const Contacts = () => {
         </p>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {contacts.map((contact, index) => (
-            <Contact contact={contact} index={index}/>
+            <Contact contact={contact} index={index} key={index}/>
           ))}
         </div>
       </div>

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { weddingDateISO } from "../../constants";
 import { DateTime } from "luxon";
-import invite from '@/assets/invite/invite.svg'
+import invite from '@/assets/invite/invite.webp'
 // Ваша SVG
 
 
